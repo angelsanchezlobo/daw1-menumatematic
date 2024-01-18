@@ -32,7 +32,7 @@
         {
             int opcioN = 0;
             bool validacio = false;
-            if ("87654321Q".Contains(opcioS))
+            if ("87654321".Contains(opcioS))
             {
                 opcioN = Convert.ToInt32(opcioS);
                 validacio = true;
@@ -43,9 +43,16 @@
             }
             else
             {
-                validacio = false;
+                if ("Qq".Contains(opcioS)) validacio = true;
+                else validacio = false;
             }
             return validacio;
+        }
+        static string Resultat()
+        {
+            string text = "hola";
+            Console.WriteLine(text);
+            return text;
         }
         static void BorrarConsola() // Aquest borrara la consola jo vulgui tornant d'aquesta manera al principi
         {
@@ -85,8 +92,8 @@
             }
         static void Capcalera()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\t\t MENÚ MATEMÀTIC 2024");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(".\t\t MENÚ MATEMÀTIC 2024");
             Console.WriteLine("\r");
             Console.WriteLine("\r");
             return;
@@ -95,7 +102,7 @@
         {
             Console.WindowHeight = 20;
             Console.WindowWidth = 60;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
 
         }
     }
