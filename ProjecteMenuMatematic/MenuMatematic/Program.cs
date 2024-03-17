@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            string opcioS = ""; int numero1, numero2, aux;
+            string opcioS = ""; int numero1, numero2, opcio; //Opcio tenia el nom de "aux"
             while (opcioS != "Q" && opcioS != "q")
             {
                 Menu();
@@ -22,31 +22,21 @@
                 }
                 else
                 {
-                    aux = Convert.ToInt32(opcioS);
-                    switch (aux)
+                    opcio = Convert.ToInt32(opcioS);
+                    //Switch d'opcions
+                    switch (opcio)
                     {
-                        //Minim Comu Divisor
-                        case 3:
+                        //Màxim
+                        case 1:
                             BorrarConsola();
-                            Console.Write("Escriu el primer número per fer el MCD: ");
+                            Console.Write("Escriu el primer número per indicar quin es el més gran: ");
                             numero1 = Convert.ToInt32(Console.ReadLine());
                             Console.Write("Escriu el segón: ");
                             numero2 = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine($"El minim comu divisor d'aquests dos numeros {MinimComuDivisor(numero1, numero2)}.");
+                            Maxim(ref numero1, ref numero2);
+                            Console.WriteLine($"El numero més gran es {numero1} i el més petit {numero2}.");
                             retorn();
                             BorrarConsola();
-                            break;
-                        //Es primer
-                        case 7:
-                            BorrarConsola();
-                            bool primer = false;
-                            Console.Write("Escriu un número per comprovar si es primer: ");
-                            numero1 = Convert.ToInt32(Console.ReadLine());
-                            primer = EsPrimer(numero1);
-                            if (primer)
-                                Console.WriteLine($"{numero1} es un numero primer.");
-                            else
-                                Console.WriteLine($"{numero1} no es un numero primer.");
                             break;
                         //Maxim comu Multiple
                         case 2:
@@ -56,6 +46,17 @@
                             Console.Write("Escriu el segón: ");
                             numero2 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine($"El maxim comu multiple d'aquests dos numeros {MaximComuMultiple(ref numero1, ref numero2)}.");
+                            retorn();
+                            BorrarConsola();
+                            break;
+                        //Minim Comu Divisor
+                        case 3:
+                            BorrarConsola();
+                            Console.Write("Escriu el primer número per fer el MCD: ");
+                            numero1 = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Escriu el segón: ");
+                            numero2 = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine($"El minim comu divisor d'aquests dos numeros {MinimComuDivisor(numero1, numero2)}.");
                             retorn();
                             BorrarConsola();
                             break;
@@ -82,32 +83,33 @@
                             retorn();
                             BorrarConsola();
                             break;
+                        //Maxim
+                        case 6:
+                            BorrarConsola();
+                            Console.Write("Escriu un número per veure el seu major divisor: ");
+                            numero1 = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine($"El major divisor d'aquest número introduit es {MajorDivisor(numero1)}");
+                            retorn();
+                            BorrarConsola();
+                            break;
+                        //Es primer
+                        case 7:
+                            BorrarConsola();
+                            bool primer = false;
+                            Console.Write("Escriu un número per comprovar si es primer: ");
+                            numero1 = Convert.ToInt32(Console.ReadLine());
+                            primer = EsPrimer(numero1);
+                            if (primer)
+                                Console.WriteLine($"{numero1} es un numero primer.");
+                            else
+                                Console.WriteLine($"{numero1} no es un numero primer.");
+                            break;
                         //PrimersPrimers
                         case 8:
                             BorrarConsola();
                             Console.Write("Escriu un número per veure tots els primers fins aquest rang: ");
                             numero1 = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine($"Els numeros primers primers d'aquest numero es {PrimersPrimers(ref numero1)}");
-                            retorn();
-                            BorrarConsola();
-                            break;
-                        //Maxim
-                        case 1:
-                            BorrarConsola();
-                            Console.Write("Escriu el primer número per indicar quin es el més gran: ");
-                            numero1 = Convert.ToInt32(Console.ReadLine());
-                            Console.Write("Escriu el segón: ");
-                            numero2 = Convert.ToInt32(Console.ReadLine());
-                            Maxim(ref numero1, ref numero2);
-                            Console.WriteLine($"El numero més gran es {numero1} i el més petit {numero2}.");
-                            retorn();
-                            BorrarConsola();
-                            break;
-                        case 6:
-                            BorrarConsola();
-                            Console.Write("Escriu un número per veure el seu major divisor: ");
-                            numero1 = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine($"El major divisor d'aquest número introduit es {MajorDivisor(numero1)}");
                             retorn();
                             BorrarConsola();
                             break;
@@ -118,6 +120,9 @@
                 }
             }
         }
+        /// <summary>
+        /// Configura la consola, mostra la capçalera i el contingut.
+        /// </summary>
         static void Menu()
         {
             ConsolaFons();
@@ -125,6 +130,13 @@
             MenuText();
             return;
         }
+        /// <summary>
+        /// Verifica si l'opció seleccionada es troba entre els valors possibles.
+        /// </summary>
+        /// <param name="opcioS">La opció seleccionada.</param>
+        /// <returns>
+        /// Cert si l'opció és vàlida.
+        /// </returns>
         static bool ValidarOpcio(string opcioS) // Aquest validara si la opció que hem escollit esta entre els valors possibles.
         {
             int opcioN = 0;
@@ -144,12 +156,9 @@
             }
             return validacio;
         }
-        static string Resultat()
-        {
-            string text = "hola";
-            Console.WriteLine(text);
-            return text;
-        }
+        /// <summary>
+        /// Compte enrere i retorna al menú principal després d'un temps.
+        /// </summary>
         static void retorn()
         {
             int contador = 5;
@@ -162,11 +171,20 @@
             }
             return;
         }
+        /// <summary>
+        /// Esborra la consola amb un clear
+        /// </summary>
         static void BorrarConsola() // Aquest borrara la consola jo vulgui tornant d'aquesta manera al principi
         {
             Console.Clear();
             return;
         }
+        /// <summary>
+        /// Interficíe del menú.
+        /// </summary>
+        /// <returns>
+        /// El text que representa el menú.
+        /// </returns>
         static string MenuText() // Aquest es el menu en text
         {
             string text;
@@ -175,8 +193,8 @@
                    "╠═══════════════════════════════════════════════════════╣\n" +
                    "║                                                       ║\n" +
                    "║                      1 - MAXIM                        ║\n" +
-                   "║                      2 - MCD                          ║\n" +
-                   "║                      3 - MCM                          ║\n" +
+                   "║                      2 - MCM                          ║\n" +
+                   "║                      3 - MCD                          ║\n" +
                    "║                      4 - FACTORIAL                    ║\n" +
                    "║                      5 - COMBINATORI                  ║\n" +
                    "║                      6 - MAJOR DIVISOR                ║\n" +
@@ -190,6 +208,9 @@
 
             return text;
         }
+        /// <summary>
+        /// Mostra la capçalera del menú matemàtic.
+        /// </summary>
         static void Capcalera()
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -198,13 +219,23 @@
             Console.WriteLine("\r");
             return;
         }
+        /// <summary>
+        /// Configura la mida de la de la consola i el color de fons.
+        /// </summary>
         static void ConsolaFons()
         {
             Console.WindowHeight = 20;
             Console.WindowWidth = 60;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
-
         }
+        /// <summary>
+        /// Calcula el MCD de dos nombres enters.
+        /// </summary>
+        /// <param name="numero1">El primer enter.</param>
+        /// <param name="numero2">El segon enter.</param>
+        /// <returns>
+        /// El MCD dels dos nombres enters especificats.
+        /// </returns>
         static int MinimComuDivisor(int numero1, int numero2)
         {
             int i = 1, mcd = 1;
@@ -217,6 +248,13 @@
             }
             return mcd;
         }
+        /// <summary>
+        /// Verifica si un nombre enter és primer o no.
+        /// </summary>
+        /// <param name="numero1">El nombre enter a verificar.</param>
+        /// <returns>
+        /// Cert si el nombre és primer; en cas contrari, fals.
+        /// </returns>
         static bool EsPrimer(int numero1)
         {
             int i = 1, j = 0;
@@ -231,6 +269,13 @@
                 validacio = true;
             return validacio;
         }
+        /// <summary>
+        /// Retorna un string que conté tots els nombres primers fins a un núm introduit.
+        /// </summary>
+        /// <param name="numero1">El nombre fins al qual es calcularan els nombres primers.</param>
+        /// <returns>
+        /// Una cadena que conté tots els nombres primers fins a 'numero1'.
+        /// </returns>
         static string PrimersPrimers(ref int numero1)
         {
             int j = 2;
@@ -254,6 +299,14 @@
             }
             return primers;
         }
+        /// <summary>
+        /// Calcula el màxim comú múltiple (MCM) de dos nombres enters.
+        /// </summary>
+        /// <param name="numero1">El primer nombre enter.</param>
+        /// <param name="numero2">El segon nombre enter.</param>
+        /// <returns>
+        /// El màxim comú múltiple (MCM) dels dos nombres enters especificats.
+        /// </returns>
         static int MaximComuMultiple(ref int numero1, ref int numero2)
         {
 
@@ -267,6 +320,13 @@
             }
             return mcm;
         }
+        /// <summary>
+        /// Calcula el factorial d'un nombre enter.
+        /// </summary>
+        /// <param name="numero">El nombre enter del qual es calcularà el factorial.</param>
+        /// <returns>
+        /// El factorial del nombre especificat.
+        /// </returns>
         static int Factorial(int numero)
         {
             int factorial = 1;
@@ -276,16 +336,37 @@
             }
             return factorial;
         }
+        /// <summary>
+        /// Calcula el combinatori.
+        /// </summary>
+        /// <param name="factorial1">Factorial de 'n'.</param>
+        /// <param name="factorial2">Factorial de 'k'.</param>
+        /// <param name="factorialResta">Factorial de 'n - k'.</param>
+        /// <returns>
+        /// El valor del combinatori.
+        /// </returns>
         static double Combinatori(ref int factorial1, ref int factorial2, ref int factorialResta)
         {
             return (double)factorial1 / (factorial2 * factorialResta);
         }
+        /// <summary>
+        /// Es comprova quin dels dos números es el més gran.
+        /// </summary>
+        /// <param name="numero1">El primer número.</param>
+        /// <param name="numero2">El segon número.</param>
         static void Maxim(ref int numero1, ref int numero2)
         {
             if (numero2 > numero1)
                 (numero1, numero2) = (numero2, numero1);
             return;
         }
+        /// <summary>
+        /// Calcula el major divisor d'un número.
+        /// </summary>
+        /// <param name="numero">El número del qual es calcularà el major divisor.</param>
+        /// <returns>
+        /// El major divisor del número introduit.
+        /// </returns>
         static int MajorDivisor(int numero)
         {
             int majorDivisor = 1;
